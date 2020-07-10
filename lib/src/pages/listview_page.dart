@@ -2,24 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class ListaPage extends StatefulWidget {
-  ListaPage({Key key}) : super(key: key);
+class ListPage extends StatefulWidget {
+  ListPage({Key key}) : super(key: key);
 
   @override
-  _ListaPageState createState() => _ListaPageState();
+  _ListPageState createState() => _ListPageState();
 }
 
-class _ListaPageState extends State<ListaPage> {
+class _ListPageState extends State<ListPage> {
   ScrollController _scrollController = new ScrollController();
 
-  List<int> _listaNumeros = new List();
-  int _ultimoItem = 0;
+  List<int> _numberList = new List();
+  int _lastItem = 0;
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _agregar10();
+    _add10();
     _scrollController.addListener(() {
       // print('pixels: ${_scrollController.position.pixels}');
       // print('maxScrollExtent: ${_scrollController.position.maxScrollExtent}');
@@ -42,23 +42,23 @@ class _ListaPageState extends State<ListaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Listas'),
+          title: Text('Lists'),
         ),
         body: Stack(
           children: <Widget>[
-            _crearLista(),
-            _crearLoading(),
+            _createList(),
+            _createLoading(),
           ],
         ));
   }
 
-  Widget _crearLista() {
+  Widget _createList() {
     return RefreshIndicator(
       child: ListView.builder(
         controller: _scrollController,
-        itemCount: _listaNumeros.length,
+        itemCount: _numberList.length,
         itemBuilder: (BuildContext context, int index) {
-          final imagen = _listaNumeros[index];
+          final imagen = _numberList[index];
 
           return FadeInImage(
               placeholder: AssetImage('assets/jar-loading.gif'),
@@ -66,25 +66,25 @@ class _ListaPageState extends State<ListaPage> {
                   'https://picsum.photos/500/300.jpg?image=$imagen'));
         },
       ),
-      onRefresh: obtenerPagina1,
+      onRefresh: _getPage1,
     );
   }
 
-  Future<Null> obtenerPagina1() async {
+  Future<Null> _getPage1() async {
     final duration = new Duration(seconds: 2);
     new Timer(duration, () {
-      _listaNumeros.clear();
-      _ultimoItem++;
-      _agregar10();
+      _numberList.clear();
+      _lastItem++;
+      _add10();
     });
 
     return Future.delayed(duration);
   }
 
-  void _agregar10() {
+  void _add10() {
     for (var i = 1; i <= 10; i++) {
-      _ultimoItem++;
-      _listaNumeros.add(_ultimoItem);
+      _lastItem++;
+      _numberList.add(_lastItem);
     }
 
     setState(() {});
@@ -95,20 +95,20 @@ class _ListaPageState extends State<ListaPage> {
     setState(() {});
 
     final duration = new Duration(seconds: 2);
-    return new Timer(duration, respuestaHTTP);
+    return new Timer(duration, _httpResponse);
   }
 
-  void respuestaHTTP() {
+  void _httpResponse() {
     _isLoading = false;
 
     // Mueve la lista del final cuando esta cargada
     _scrollController.animateTo(_scrollController.position.pixels + 100,
         duration: Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
 
-    _agregar10();
+    _add10();
   }
 
-  Widget _crearLoading() {
+  Widget _createLoading() {
     if (_isLoading) {
       return Column(
         mainAxisSize: MainAxisSize.max,

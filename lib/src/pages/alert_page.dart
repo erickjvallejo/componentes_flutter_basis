@@ -11,11 +11,11 @@ class AlertPage extends StatelessWidget {
       ),
       body: Center(
         child: RaisedButton(
-            child: Text('Mostrar Alerta'),
+            child: Text('Show Alert'),
             color: Colors.blue,
             textColor: Colors.white,
             shape: StadiumBorder(),
-            onPressed: () => _mostrarAlert(context)),
+            onPressed: () => _showAlert(context)),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_location),
@@ -26,7 +26,7 @@ class AlertPage extends StatelessWidget {
     );
   }
 
-  void _mostrarAlert(BuildContext context) {
+  void _showAlert(BuildContext context) {
     showDialog(
         context: context,
         barrierDismissible: true,
@@ -34,17 +34,17 @@ class AlertPage extends StatelessWidget {
           return AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)),
-            title: Text('Titulo'),
+            title: Text('My Title'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text('Este e el contenido de la cada de la alerta'),
+                Text('This is the alert content, pretty simple!'),
                 FlutterLogo(size: 100.0)
               ],
             ),
             actions: <Widget>[
               FlatButton(
-                  child: Text('Cancelar'),
+                  child: Text('Cancel'),
                   onPressed: () => Navigator.of(context).pop()),
               FlatButton(
                   child: Text('Ok'),

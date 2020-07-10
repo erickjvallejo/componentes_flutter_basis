@@ -8,13 +8,13 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  String _nombre = '';
+  String _name = '';
   String _email = '';
   String _password = '';
-  String _fecha = '';
-  String _opcionSeleccionada = 'Volar';
+  String _date = '';
+  String _optionChoosen = 'Fly';
 
-  List _poderes = ['Volar', 'Rayos X', 'Super Fuerza', 'Super Aliento'];
+  List _poderes = ['Fly', 'X Rays', 'Strong', 'Breath'];
 
   TextEditingController _inputFieldDateController = new TextEditingController();
 
@@ -22,22 +22,22 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Input de Texto'),
+        title: Text('Enter a text'),
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
         children: <Widget>[
           _crearInput(),
           Divider(),
-          _crearEmail(),
+          _createEmail(),
           Divider(),
-          _crearPassword(),
+          _createPassword(),
           Divider(),
-          _crearFecha(context),
+          _crearDate(context),
           Divider(),
-          _crearDropDown(),
+          _createDropDown(),
           Divider(),
-          _crearPersona(),
+          _crearPerson(),
           Divider(),
         ],
       ),
@@ -50,23 +50,23 @@ class _InputPageState extends State<InputPage> {
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-        counter: Text('Letras ${_nombre.length}'),
-        hintText: 'Nombre de la persona',
-        labelText: 'Nombre',
-        helperText: 'Solo es el nombre',
+        counter: Text('Words ${_name.length}'),
+        hintText: 'Name of someone',
+        labelText: 'Name',
+        helperText: 'Just you name',
         suffixIcon: Icon(Icons.accessibility),
         icon: Icon(Icons.account_circle),
       ),
-      onChanged: (valor) {
-        // print(_nombre);
+      onChanged: (value) {
+        // print(_name);
         setState(() {
-          _nombre = valor;
+          _name = value;
         });
       },
     );
   }
 
-  Widget _crearEmail() {
+  Widget _createEmail() {
     return TextField(
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
@@ -76,12 +76,12 @@ class _InputPageState extends State<InputPage> {
           suffixIcon: Icon(Icons.alternate_email),
           icon: Icon(Icons.email),
         ),
-        onChanged: (valor) => setState(() {
-              _email = valor;
+        onChanged: (value) => setState(() {
+              _email = value;
             }));
   }
 
-  _crearPassword() {
+  _createPassword() {
     return TextField(
         obscureText: true,
         decoration: InputDecoration(
@@ -91,19 +91,20 @@ class _InputPageState extends State<InputPage> {
           suffixIcon: Icon(Icons.lock_open),
           icon: Icon(Icons.lock),
         ),
-        onChanged: (valor) => setState(() {
-              _password = valor;
+        onChanged: (value) =>
+            setState(() {
+              _password = value;
             }));
   }
 
-  _crearFecha(BuildContext context) {
+  _crearDate(BuildContext context) {
     return TextField(
       controller: _inputFieldDateController,
       enableInteractiveSelection: false,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-        hintText: 'Fecha de Nacimiento',
-        labelText: 'Fecha de Nacimiento',
+        hintText: 'Birthday',
+        labelText: 'Birthday',
         suffixIcon: Icon(Icons.calendar_today),
         icon: Icon(Icons.calendar_view_day),
       ),
@@ -124,45 +125,45 @@ class _InputPageState extends State<InputPage> {
 
     if (picked != null) {
       setState(() {
-        _fecha = picked.toString();
-        _inputFieldDateController.text = _fecha;
+        _date = picked.toString();
+        _inputFieldDateController.text = _date;
       });
     }
   }
 
   List<DropdownMenuItem<String>> getOpcionesDropdown() {
-    List<DropdownMenuItem<String>> lista = new List();
-    _poderes.forEach((poder) {
-      lista.add(DropdownMenuItem(
-        child: Text(poder),
-        value: poder,
+    List<DropdownMenuItem<String>> list = new List();
+    _poderes.forEach((power) {
+      list.add(DropdownMenuItem(
+        child: Text(power),
+        value: power,
       ));
     });
-    return lista;
+    return list;
   }
 
-  Widget _crearDropDown() {
+  Widget _createDropDown() {
     return Row(children: <Widget>[
       Icon(Icons.select_all),
       SizedBox(width: 30.0),
       Expanded(
         child: DropdownButton(
-            value: _opcionSeleccionada,
+            value: _optionChoosen,
             items: getOpcionesDropdown(),
             onChanged: (opt) {
               setState(() {
-                _opcionSeleccionada = opt;
+                _optionChoosen = opt;
               });
             }),
       )
     ]);
   }
 
-  Widget _crearPersona() {
+  Widget _crearPerson() {
     return ListTile(
-      title: Text('Nombre es $_nombre'),
-      subtitle: Text('Email es $_email'),
-      leading: Text('La opcion es $_opcionSeleccionada'),
+      title: Text('Name is $_name'),
+      subtitle: Text('Email is $_email'),
+      leading: Text('The option is $_optionChoosen'),
     );
   }
 }

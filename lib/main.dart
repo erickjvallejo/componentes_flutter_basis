@@ -1,8 +1,7 @@
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter/material.dart';
-
 import 'package:componente/src/pages/avatar_page.dart';
 import 'package:componente/src/routes/routes.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,10 +24,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: getApplicationRoutes(),
       onGenerateRoute: (RouteSettings settings) {
-        print('Ruta Llamada: ${settings.name}');
+        print('Path called: ${settings.name}');
         return MaterialPageRoute(
-          builder: (BuildContext context)=> AvatarPage()
-          );
+            builder: (BuildContext context) => AvatarPage());
       },
     );
   }

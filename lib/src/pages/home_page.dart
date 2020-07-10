@@ -9,13 +9,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Componentes'),
+        title: Text('Components'),
       ),
-      body: _lista(),
+      body: _list(),
     );
   }
 
-  Widget _lista() {
+  Widget _list() {
     //print(menuProvider.opciones);
     /*
     menuProvider.cargarData().then((opciones) {
@@ -39,7 +39,6 @@ class HomePage extends StatelessWidget {
         leading: getIcon(opt['icon']),
         trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
         onTap: () {
-
           Navigator.pushNamed(context, opt['ruta']);
           /*
           final route = MaterialPageRoute(

@@ -34,19 +34,19 @@ class _AnimatedContainerPageState extends State<AnimatedContainerPage> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.play_arrow),
-          onPressed: _cambiarPropiedades,
+          onPressed: _changeProperties,
         ));
   }
 
-  void _cambiarPropiedades() {
+  void _changeProperties() {
     final random = Random();
-    
+
     setState(() {
-      print('Cambiando propiedades');
+      print('Changing properties');
       _height = random.nextInt(300).toDouble();
       _width = random.nextInt(300).toDouble();
       _color = Color.fromRGBO(
-      random.nextInt(255), random.nextInt(255), random.nextInt(255), 1);
+          random.nextInt(255), random.nextInt(255), random.nextInt(255), 1);
 
       _boderRadius = BorderRadius.circular(random.nextInt(100).toDouble());
     });

@@ -8,8 +8,8 @@ class SliderPage extends StatefulWidget {
 }
 
 class _SliderPageState extends State<SliderPage> {
-  double _valorSlider = 200.0;
-  bool _bloquearCheck = false;
+  double _sliderValue = 200.0;
+  bool _lockCheck = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,69 +21,63 @@ class _SliderPageState extends State<SliderPage> {
         padding: EdgeInsets.only(top: 50.0),
         child: Column(
           children: <Widget>[
-            _crearSlider(),
-            _crearCheckbox(),
+            _createSlider(),
+            _createCheckbox(),
             _crearSwitch(),
-            Expanded(child: _crearImagen())
-            ],
+            Expanded(child: _createImage())
+          ],
         ),
       ),
     );
   }
 
-  Widget _crearSlider() {
+  Widget _createSlider() {
     return Slider(
       activeColor: Colors.indigoAccent,
-      label: 'Tamanio de la imagen',
+      label: '',
       // divisions: 100 ,
-      value: _valorSlider,
+      value: _sliderValue,
       min: 10.0,
       max: 400.0,
-      onChanged: (_bloquearCheck) ? null : (valor) {
-        setState(() {
-          _valorSlider = valor;
-        });
-      },
+      onChanged: (_lockCheck)
+          ? null
+          : (valor) {
+              setState(() {
+                _sliderValue = valor;
+              });
+            },
     );
   }
 
- Widget _crearImagen() {
-   return Image(
-     width: _valorSlider,
-     fit: BoxFit.contain,
-     image: NetworkImage(
-       'https://dam.smashmexico.com.mx/wp-content/uploads/2017/08/03202708/dc-top-5-los-mejores-momentos-de-batman-escritos-por-scott-snyder-cover.jpg') ,
-       );
- }
+  Widget _createImage() {
+    return FadeInImage(
+      placeholder: AssetImage('assets/jar-loading.gif'),
+      image: NetworkImage(
+          'https://dam.smashmexico.com.mx/wp-content/uploads/2017/08/03202708/dc-top-5-los-mejores-momentos-de-batman-escritos-por-scott-snyder-cover.jpg'),
+      width: _sliderValue,
+      fit: BoxFit.contain,
+    );
+  }
 
-  Widget _crearCheckbox() {
-    // return Checkbox(
-    //   value: _bloquearCheck,
-    //   onChanged: (valor){
-    //     setState(() {
-    //     _bloquearCheck = valor;          
-    //     });
-    //   });
+  Widget _createCheckbox() {
     return CheckboxListTile(
-      title: Text('Bloquear slider'),
-    value: _bloquearCheck,
-      onChanged: (valor){
-        setState(() {
-        _bloquearCheck = valor;          
+        title: Text('Lock Slider'),
+        value: _lockCheck,
+        onChanged: (value) {
+          setState(() {
+            _lockCheck = value;
+          });
         });
-      });
   }
 
   _crearSwitch() {
-
- return SwitchListTile(
-      title: Text('Bloquear slider'),
-    value: _bloquearCheck,
-      onChanged: (valor){
-        setState(() {
-        _bloquearCheck = valor;          
+    return SwitchListTile(
+        title: Text('Lock Slider'),
+        value: _lockCheck,
+        onChanged: (value) {
+          setState(() {
+            _lockCheck = value;
+          });
         });
-      });
-
   }
 }
